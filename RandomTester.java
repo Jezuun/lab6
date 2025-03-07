@@ -69,6 +69,15 @@ public class RandomTester {
        
         return randomGenerator.nextInt(max) + 1;
     }
+} public int generateRandomNumberInRangeWithMin(int min, int max) {
+        if (min > max) {
+              System.out.println("Max must be greater than or equal to 1.");
+        return -99999;
+        }
+        else {
+       
+        return randomGenerator.nextInt(max) + 1;
+    }
 }
 
   
