@@ -54,11 +54,24 @@ public class RandomTester {
       }
     }
      public String getBetterResponse() {
-        int index = randomGenerator.nextInt(3);  
+        int index = randomGenerator.nextInt(6);  
         
         
         return responses.get(index);
     }
-    
+     public int generateRandomNumberInRange(int max) {
+       
+        if (max < 1) {
+        System.out.println("Max must be greater than or equal to 1.");
+        return -99999;
+        }
+        else {
+       
+        return randomGenerator.nextInt(max) + 1;
+    }
+}
+
   
+
+
 }
