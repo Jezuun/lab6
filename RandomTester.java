@@ -79,8 +79,18 @@ public class RandomTester {
         return randomGenerator.nextInt(max) + 1;
     }
 }
-
-  
+  private void fillResponses() {
+        responses.add("1");
+        responses.add("2");
+        responses.add("3");
+     responses.add("4");
+        responses.add("5");
+        responses.add("6");
+    }
+      public String generateResponse() {
+        int index = randomGenerator.nextInt(responses.size()); 
+        return responses.get(index); 
+    }
 
 
 }
