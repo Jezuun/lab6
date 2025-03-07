@@ -1,28 +1,58 @@
-/**
- * This class implements a technical support system. It is the top level class 
- * in this project. The support system communicates via text input/output 
- * in the text terminal.
- * 
- * This class uses an object of class InputReader to read input from the user,
- * and an object of class Responder to generate responses. It contains a loop
- * that repeatedly reads input and generates output until the users wants to 
- * leave.
- * 
- * @author     Michael Kölling and David J. Barnes
- * @version    0.1 (2016.02.29)
- */
+import java.util.HashMap;
+
 public class SupportSystem
 {
     private InputReader reader;
-    private Responder responder;
-    
+    private HashMap<String, String> responsesMap;
+
     /**
      * Creates a technical support system.
      */
     public SupportSystem()
     {
         reader = new InputReader();
-        responder = new Responder();
+        responsesMap = new HashMap<>();
+        fillResponsesMap();  
+    }
+
+    /**
+     * Fill the responses map with known words and their associated responses.
+     */
+    private void fillResponsesMap()
+    {
+      
+        responsesMap.put("printer", "Try restarting your printer or checking the connection.");
+        responsesMap.put("internet", "Please check your network connection or restart your router.");
+        responsesMap.put("password", "Ensure you're typing the correct password, and check for caps lock.");
+        responsesMap.put("screen", "Try adjusting the brightness or check if the monitor is connected properly.");
+       
+    }
+
+    /**
+     * Generate a response based on the provided input word.
+     * @param word  The word received from the user input
+     * @return      The response associated with the word, or a default message if no match is found
+     */
+    public String generateResponse(String word)
+    {
+        
+        if (responsesMap.containsKey(word))
+        {
+            return responsesMap.get(word);
+        }
+        else
+        {
+            return pickDefaultResponse();
+        }
+    }
+
+    /**
+     * Return a default response if no matching word is found.
+     * @return  A default response message
+     */
+    private String pickDefaultResponse()
+    {
+        return "I'm sorry, I don't understand the issue. Could you please describe it in more detail?";
     }
 
     /**
@@ -43,8 +73,8 @@ public class SupportSystem
                 finished = true;
             }
             else {
-                String response = responder.generateResponse();
-                System.out.println(response);
+             //idk what to do yet
+             
             }
         }
 
@@ -71,3 +101,5 @@ public class SupportSystem
         System.out.println("Nice talking to you. Bye...");
     }
 }
+
+
