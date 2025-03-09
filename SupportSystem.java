@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class SupportSystem
 {
@@ -57,14 +58,29 @@ public class SupportSystem
         printWelcome();
 
         while (!finished) {
-            System.out.print("> "); 
-            String input = reader.getInput().toLowerCase().trim();
+            String inputLine = reader.getInput(); // Get user input as a string
+            // Split the input into words and store them in a HashSet
+            HashSet<String> words = new HashSet<>();
+            for (String word : inputLine.split("\\s+")) {
+                words.add(word.toLowerCase()); // Add each word to the HashSet (in lowercase for consistency)
+            }
 
-            if (input.startsWith("bye")) {
+            if (words.contains("bye")) {
                 finished = true;
             } else {
-                String response = generateResponse(input);
-                System.out.println(response);
+                boolean foundResponse = false;
+                for (String word : words) {
+                    String response = generateResponse(word);
+                    if (!response.equals(pickDefaultResponse())) { // If a valid response is found
+                        System.out.println(response);
+                        foundResponse = true;
+                        break; // Stop checking after the first match
+                    }
+                }
+
+                if (!foundResponse) { // If no word matched, print the default response
+                    System.out.println(pickDefaultResponse());
+                }
             }
         }
 
@@ -91,5 +107,6 @@ public class SupportSystem
         System.out.println("Nice talking to you. Bye...");
     }
 }
+
 
 
