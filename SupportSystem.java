@@ -28,13 +28,19 @@ public class SupportSystem
     }
 
     /**
-     * Generate a response based on the provided input word.
-     * @param word  The word received from the user input
-     * @return      The response associated with the word, or a default message if no match is found
+     * Generate a response based on the provided input word set.
+     * @param words  The set of words received from the user input
+     * @return       The response associated with the word, or a default message if no match is found
      */
-    public String generateResponse(String word)
+    public String generateResponse(HashSet<String> words)
     {
-        return responsesMap.getOrDefault(word, pickDefaultResponse());
+        for (String word : words) {
+            String response = responsesMap.get(word);
+            if (response != null) {
+                return response;
+            }
+        }
+        return pickDefaultResponse(); // Return default response if no match is found
     }
 
     /**
@@ -68,19 +74,8 @@ public class SupportSystem
             if (words.contains("bye")) {
                 finished = true;
             } else {
-                boolean foundResponse = false;
-                for (String word : words) {
-                    String response = generateResponse(word);
-                    if (!response.equals(pickDefaultResponse())) { // If a valid response is found
-                        System.out.println(response);
-                        foundResponse = true;
-                        break; // Stop checking after the first match
-                    }
-                }
-
-                if (!foundResponse) { // If no word matched, print the default response
-                    System.out.println(pickDefaultResponse());
-                }
+                String response = generateResponse(words); // Pass HashSet to the response generator
+                System.out.println(response);
             }
         }
 
@@ -107,6 +102,15 @@ public class SupportSystem
         System.out.println("Nice talking to you. Bye...");
     }
 }
+
+
+// question 40 The Arrays class provides a variety of utility methods for working with arrays, including:
+// 1. Arrays.sort() - Sorts the elements of the array in ascending order.
+// 2. Arrays.binarySearch() - Performs a binary search on a sorted array to find a specific element.
+// 3. Arrays.equals() - Compares two arrays to check if they are equal (same length and same elements).
+// 4. Arrays.fill() - Fills an array with a specified value.
+// 5. Arrays.copyOf() - Creates a new array by copying elements from an existing array, with a specified length.
+
 
 
 
