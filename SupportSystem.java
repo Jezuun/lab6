@@ -20,12 +20,10 @@ public class SupportSystem
      */
     private void fillResponsesMap()
     {
-      
         responsesMap.put("printer", "Try restarting your printer or checking the connection.");
         responsesMap.put("internet", "Please check your network connection or restart your router.");
         responsesMap.put("password", "Ensure you're typing the correct password, and check for caps lock.");
         responsesMap.put("screen", "Try adjusting the brightness or check if the monitor is connected properly.");
-       
     }
 
     /**
@@ -35,15 +33,7 @@ public class SupportSystem
      */
     public String generateResponse(String word)
     {
-        
-        if (responsesMap.containsKey(word))
-        {
-            return responsesMap.get(word);
-        }
-        else
-        {
-            return pickDefaultResponse();
-        }
+        return responsesMap.getOrDefault(word, pickDefaultResponse());
     }
 
     /**
@@ -66,15 +56,15 @@ public class SupportSystem
 
         printWelcome();
 
-        while(!finished) {
-            String input = reader.getInput();
+        while (!finished) {
+            System.out.print("> "); 
+            String input = reader.getInput().toLowerCase().trim();
 
-            if(input.startsWith("bye")) {
+            if (input.startsWith("bye")) {
                 finished = true;
-            }
-            else {
-             //idk what to do yet
-             
+            } else {
+                String response = generateResponse(input);
+                System.out.println(response);
             }
         }
 
